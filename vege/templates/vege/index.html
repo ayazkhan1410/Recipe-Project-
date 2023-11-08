@@ -1,0 +1,32 @@
+{% extends "vege/base.html"%}
+<title>{% block title%} Recepie Project 2023 {% endblock %}</title>
+
+{% block body %}
+
+<div class="container my-4">
+  <form class="col-6 mx-auto card p-3 shadow-lg " method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2> Add Receipe </h2>
+    <hr>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Receipe Name</label>
+      <input type="text" name="recipe_name" required class="form-control" placeholder="Receipe Name">
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Receipe Description</label>
+      <textarea class="form-control"   required  name="recipe_desciption" placeholder="Receipe Description" rows="3" spellcheck="false" style="height: 305px;"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Image Upload </label>
+      <input type="file" name="recipe_image" class="form-control" >
+    </div>
+
+    <button type="submit" class="btn btn-dark">Add Receipe </button>
+
+  </form>
+      
+</div>
+
+{% endblock %}

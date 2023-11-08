@@ -1,0 +1,52 @@
+{% extends "myapp/basic.html" %}
+
+<title>{% block title %} Django Tutorial 2023 {% endblock %}</title>
+
+{% block css %}
+
+table, th, td {
+  border: 1px solid black;
+}
+{% endblock %}
+
+{% block body %}
+
+  <h1 class="mx-2 my-2"> Template taking Data from Django server </h1>
+  <table class="container">
+    <tr>
+      <th>S.No</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Can Vote</th>
+    </tr>
+    {% for person in peoples %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ person.name }}</td>
+      <td>{{ person.age }}</td>
+     <td>
+      {% if person.age >= 18 %}
+      👍
+      {% else %}
+      👎
+      {% endif %}
+     </td>
+    </tr>
+    {% endfor %}
+  
+  </table>
+
+  <p>
+    <!-- {% if "Tomato" in text %}
+    Avaiable
+    {% elif "Pumpkin" in text %}
+    Yes Avaiable
+    {% else %}
+    No Avaiable
+    {% endif %} -->
+    <!-- {{ text | truncatechars:40 }} -->
+  </p>
+</div>
+
+{% endblock %}
+
