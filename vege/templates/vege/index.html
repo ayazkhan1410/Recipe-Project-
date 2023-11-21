@@ -5,11 +5,10 @@
 
 {% endblock%}
 
-
 {% block body %}
 
 <div class="container my-4">
-
+  
   <form class="col-6 mx-auto card p-3 shadow-lg " method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h2> Add Receipe </h2>
@@ -22,16 +21,16 @@
 
     <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label">Receipe Description</label>
-      <textarea class="form-control" required="" name="recipe_desciption" placeholder="Receipe Description" rows="3"
+      <textarea class="form-control" required name="recipe_desciption" placeholder="Receipe Description" rows="3"
         spellcheck="false" style="height: 145px;"></textarea>
     </div>
 
     <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label">Image Upload </label>
-      <input type="file" name="recipe_image" class="form-control">
+      <input type="file" required name="recipe_image" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-dark">Add Receipe </button>
+    <button type="submit" class="btn btn-dark">Add Receipe</button>
 
   </form>
 
@@ -55,8 +54,11 @@
         <td>
           <img src = "/media/{{i.recipe_image}}" style="height: 200px;">
         </td>
+
         <td>
-          <a href="/recepies/delete/{{i.id}}"" class="btn btn-danger">Delete</a>
+          <a href="/recepies/delete/{{i.id}}" class="btn btn-danger">Delete</a>
+          <a href="/recepies/update/{{i.id}}" class="btn btn-success my-2">Update</a>
+          
         </td>
       </tr>
       {% endfor %}
