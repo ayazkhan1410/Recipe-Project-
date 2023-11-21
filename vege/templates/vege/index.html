@@ -30,13 +30,27 @@
       <input type="file" required name="recipe_image" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-dark">Add Receipe</button>
+    <button type="submit" class="btn btn-success">Add Receipe</button>
 
   </form>
-
+<hr>
   <table class="table table-bordered my-4">
     <thead>
       <tr>
+        <form action="">
+        <div class="mt-5">
+          <div class="mx-auto col-6">
+            <div class="mb-3">
+              
+              <label for="exampleFormControlInput1" class="form-label">Search Food</label>
+              <input type="text" name="recipe_name" required class="form-control" placeholder="Search Receipe">
+            </div>
+
+            <button type="submit" class="btn btn-dark">Search Recipe</button>
+          </form>
+
+          </div>
+
         <th scope="col">No</th>
         <th scope="col">Receipe Name</th>
         <th scope="col">Receipe Description</th>
@@ -58,7 +72,7 @@
         <td>
           <a href="/recepies/delete/{{i.id}}" class="btn btn-danger">Delete</a>
           <a href="/recepies/update/{{i.id}}" class="btn btn-success my-2">Update</a>
-          
+
         </td>
       </tr>
       {% endfor %}

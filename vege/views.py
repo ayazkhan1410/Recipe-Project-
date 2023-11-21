@@ -24,27 +24,31 @@ def recepies(request):
     return render(request, "vege/index.html",context)
 
 def update(request, id):
-    
-    queryset = {}
+    try:
+        # Fetch the specific recipe to update
+        recipe = RecipeName.objects.get(id=id)
+    except RecipeName.DoesNotExist:
+        return HttpResponse("Recipe does not exist")  # Handle the case where the recipe doesn't exist
+
     if request.method == "POST":
         data = request.POST
         recipe_name = data.get("recipe_name")
-        recipe_desciption = data.get("recipe_desciption")
+        recipe_description = data.get("recipe_description")
         recipe_image = request.FILES.get("recipe_image")
 
-        queryset = RecipeName.objects.get(id=id)
-        queryset.recipe_name = recipe_name
-        queryset.recipe_desciption = recipe_desciption
+        recipe.recipe_name = recipe_name
+        recipe.recipe_description = recipe_description
 
         if recipe_image:
-            queryset.recipe_image = recipe_image
+            recipe.recipe_image = recipe_image
 
-        queryset.save()
+        recipe.save()
 
         return redirect("/recepies")  # Redirect to the "recepies" page after updating
 
-    context = {'recipe': queryset}
-    return render(request, "vege/update.html", context)  # Render the "update.html" page
+    context = {'recipe': recipe}
+    return render(request, "vege/update.html", context)
+
 
 def delete(request, id):
    obj = RecipeName.objects.get(id=id)

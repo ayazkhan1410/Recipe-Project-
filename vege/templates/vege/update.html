@@ -17,13 +17,13 @@
 
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Receipe Name</label>
-      <input type="text"   name="recipe_name" required class="form-control" placeholder="Receipe Name">
+      <input type="text" value="{{recipe.recipe_name}}"  name="recipe_name" required class="form-control" placeholder="Receipe Name">
     </div>
 
     <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label">Receipe Description</label>
       <textarea class="form-control" required name="recipe_desciption" placeholder="Receipe Description" rows="3"
-        spellcheck="false" style="height: 145px;"></textarea>
+        spellcheck="false" style="height: 145px;">{{recipe.recipe_desciption}}</textarea>
     </div>
 
     <div class="mb-3">
@@ -31,7 +31,7 @@
       <input type="file" name="recipe_image" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-dark">Add Receipe </button>
+    <button type="submit" class="btn btn-success">Add Receipe </button>
 
   </form>
 
