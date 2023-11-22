@@ -7,8 +7,9 @@
 
 {% block body %}
 
+
 <div class="container my-4">
-  
+ 
   <form class="col-6 mx-auto card p-3 shadow-lg " method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h2> Add Receipe </h2>
@@ -37,18 +38,19 @@
   <table class="table table-bordered my-4">
     <thead>
       <tr>
-        <form action="">
+        <form>
         <div class="mt-5">
           <div class="mx-auto col-6">
             <div class="mb-3">
               
               <label for="exampleFormControlInput1" class="form-label">Search Food</label>
-              <input type="text" name="recipe_name" required class="form-control" placeholder="Search Receipe">
+              <input type="text" name="search" class="form-control" placeholder="Search Receipe">
+
             </div>
 
             <button type="submit" class="btn btn-dark">Search Recipe</button>
-          </form>
 
+          </form>
           </div>
 
         <th scope="col">No</th>

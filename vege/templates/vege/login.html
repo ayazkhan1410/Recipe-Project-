@@ -1,0 +1,33 @@
+{% extends "vege/base.html"%}
+<title>{% block title%} Register Page ! {% endblock %}</title>
+
+{% block css%}
+
+{% endblock%}
+
+{% block body %}
+
+<div class="container my-4">
+    <a href="/recepies" class="btn btn-dark"> Redirect to Home Page </a>
+  <form class="col-6 mx-auto card p-3 shadow-lg " method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <h2> Login </h2>
+    <hr>
+
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Username</label>
+      <input type="text" name="Firstname" required class="form-control" placeholder="Enter your First Name">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Password</label>
+        <input type="password" name="Password" required class="form-control" placeholder="Enter your Password">
+    </div>
+
+    <p>Don't have account? <a href="/recepies/register">Signup</a></p>
+    <button type="submit" class="btn btn-primary">Login</button>
+
+  </form>
+
+  {% endblock %}

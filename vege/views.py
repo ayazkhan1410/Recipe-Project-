@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from . models import *
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -19,8 +20,11 @@ def recepies(request):
         return redirect("/recepies")
     
     queryset = RecipeName.objects.all()
-    context = {'recipes':queryset}
     
+    if request.GET.get('search'):
+        queryset = queryset.filter(recipe_name__icontains=request.GET.get('search'))
+    
+    context = {'recipes':queryset}
     return render(request, "vege/index.html",context)
 
 def update(request, id):
@@ -55,3 +59,32 @@ def delete(request, id):
    obj.delete()
    return redirect("/recepies")
    
+   
+def register(request):
+    
+    
+    
+    if request.method == "POST":
+        data = request.POST
+        Firstname = data.get("Firstname")
+        Lastname = data.get("Lastname")
+        Username = data.get("Username")
+        Password = data.get("Password")
+        
+        user = User.objects.filter(Username=Username)
+        
+        if user.exists():
+            pass
+        
+        user = User.objects.create_user(first_name=Firstname, last_name=Lastname, username=Username)
+        
+        user.set_password(Password)
+        user.save()
+        
+        return redirect("/recepies/register")
+    
+    return render(request, "vege/register.html")
+
+
+def login(request):
+    return render(request, "vege/login.html")
