@@ -19,10 +19,29 @@
 
 </head>
 
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a href="/recepies" class="navbar-brand">Welcome to AddFlavorsNow</a>
+    <form class="d-flex" role="search">
+
+      {% if request.user.is_authenticated %}
+      <a href="/recepies/logout" type="submit" class="btn btn-primary mx-3">logout</a>
+      {% else %}
+      <a href="/recepies/login" type="submit" class="btn btn-primary mx-3">login</a>
+      {% endif %}
+
+      <input type="text" name="search" class="form-control" placeholder="Search Receipe">
+      <button class="btn btn-outline-success mx-2" type="submit">Search</button>
+      
+    </form>
+  </div>
+</nav>
+
 
 <body>
 
     {% block body %}
+
     
     {% endblock %}
 

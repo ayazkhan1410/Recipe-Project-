@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from . models import *
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required(login_url="/recepies/login")
 def recepies(request):
     
     if request.method == "POST":
@@ -27,6 +30,7 @@ def recepies(request):
     context = {'recipes':queryset}
     return render(request, "vege/index.html",context)
 
+@login_required(login_url="/recepies/login")
 def update(request, id):
     try:
         # Fetch the specific recipe to update
@@ -53,7 +57,7 @@ def update(request, id):
     context = {'recipe': recipe}
     return render(request, "vege/update.html", context)
 
-
+@login_required(login_url="/recepies/login")
 def delete(request, id):
    obj = RecipeName.objects.get(id=id)
    obj.delete()
@@ -62,29 +66,51 @@ def delete(request, id):
    
 def register(request):
     
-    
-    
     if request.method == "POST":
         data = request.POST
-        Firstname = data.get("Firstname")
-        Lastname = data.get("Lastname")
-        Username = data.get("Username")
-        Password = data.get("Password")
+        first_name = data.get("Firstname")
+        last_name = data.get("Lastname")
+        username = data.get("Username")
+        password = data.get("Password")
         
-        user = User.objects.filter(Username=Username)
+        user = User.objects.filter(username=username)
         
         if user.exists():
-            pass
-        
-        user = User.objects.create_user(first_name=Firstname, last_name=Lastname, username=Username)
-        
-        user.set_password(Password)
-        user.save()
-        
-        return redirect("/recepies/register")
-    
+            messages.info(request, "User already exists.")
+            return redirect("/recepies/register")
+        else:
+            user = User.objects.create(first_name=first_name,last_name=last_name,username=username)
+            user.set_password(password)
+            user.save()
+            messages.info(request, "Account created successfully.")
+            return redirect("/recepies/register")
+            
     return render(request, "vege/register.html")
 
 
-def login(request):
+def login_page(request):
+    
+    if request.method == "POST":
+        data = request.POST
+        username = data.get("username")
+        password = data.get("password")
+        
+        if not User.objects.filter(username = username).exists():
+            messages.info(request,"User does not exist, Please Create account")
+            return redirect("/recepies/login")
+        
+        user = authenticate(username=username, password=password)
+        
+        if user is None:
+            messages.error(request, "Wrong Password")
+            return redirect("/recepies/login")
+        else:
+            login(request,user)
+            return redirect("/recepies")
+            
     return render(request, "vege/login.html")
+
+def log_out(request):
+    
+    logout(request)
+    return redirect("/recepies/login")
